@@ -45,4 +45,4 @@ Write-Host "Tasks Scheduled Succesfully."-ForegroundColor Green
 #graphical interface like folder select, calender select
 #package as a module, or .exe?
 #vetted and tested on VM network of AD environment, not tested by PSRemote
-#created by Matthew Younker 11/11/2023 younker2317@students.cptc.edu 
+#created by ExitEject 11/11/2023
