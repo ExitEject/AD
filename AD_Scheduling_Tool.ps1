@@ -11,7 +11,7 @@ Write-Host "File path does not exist, verify path exist."-ForegroundColor Red
 exit
 }
 $user = Read-Host "Enter name of User" -ForegroundColor Green
-#$user is what person's AD account you want disabled or enabled. needs to be like myounker, whatever the actual AD username is before domain#
+#$user is what person's AD account you want disabled or enabled. needs to be like jdoe, whatever the actual AD username is before domain#
 Get-ADUser $user -ErrorAction -Stop
 #ad module finds the user and spits out the data letting you know it was valid#
 $startvacation = Read-Host "Enter date you want the Users account to be *disabled* (no /) YYYY-MM-DD HH:MM:SS" 
