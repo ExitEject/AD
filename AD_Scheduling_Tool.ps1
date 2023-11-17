@@ -22,11 +22,27 @@ while ($option -notin
 '1', '2', '3') {
     Write-Host "Error, please type a number 1 OR 2 OR 3"
 } 
-#need to add question function that asks what the function if, offboarding, vacation, or onboarding
+
 #this will lead to only some of the questions being asked offboard(disable), vacation (normal) 
 #onboarding (disable in 1 hr, and only asks what date they want to be onboarded)
-$startvacation = Read-Host "Enter date you want the Users account to be *disabled* (no /) YYYY-MM-DD HH:MM:SS" 
-$stopvacation = Read-Host "Enter date you want the Users account to be *enabled* (no /) YYYY-MM-DD HH:MM:SS" 
+if ($option = '1') {
+    $time1 = Get-Date
+    $time1.ToString("YYYY-MM-DD HH:MM:SS")
+    $startvacation = ($time1).AddHours(1)
+    $stopvacation = Read-Host "Enter date you want the Users account to be *enabled* (no /) YYYY-MM-DD HH:MM:SS"
+}
+elseif ($option = '3') {
+    $startvacation = Read-Host "Enter date you want the Users account to be *disabled* (no /) YYYY-MM-DD HH:MM:SS" 
+    $stopvacation = Read-Host "Enter date you want the Users account to be *enabled* (no /) YYYY-MM-DD HH:MM:SS" 
+
+}
+elseif ($option = '2') {
+    $time2= Get-Date
+    $time2.ToString("YYYY-MM-DD HH:MM:SS")
+    $stopvacation = ($time2).AddMinutes(5)
+    $startvacation = Read-Host "Enter date you want the Users account to be *disabled* (no /) YYYY-MM-DD HH:MM:SS" 
+}
+#these functions could be done more efficient to prevent DRY
 Remove-JobTrigger -Name "$startvacation" -ErrorAction SilentlyContinue
 Remove-JobTrigger -Name "$stopvacation" -ErrorAction SilentlyContinue
 #both of the above functions are kinda pointless and may create visible error messages its just to clean up any previous dupes*
