@@ -37,7 +37,7 @@ elseif ($option = '3') {
 
 }
 elseif ($option = '2') {
-    $time2= Get-Date
+    $time2 = Get-Date
     $time2.ToString("YYYY-MM-DD HH:MM:SS")
     $stopvacation = ($time2).AddMinutes(5)
     $startvacation = Read-Host "Enter date you want the Users account to be *disabled* (no /) YYYY-MM-DD HH:MM:SS" 
