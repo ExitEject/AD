@@ -20,7 +20,7 @@ $option = Read-Host "Enter reason of scheduling:
 [3] Vacation" -ForegroundColor Green
 while ($option -notin
 '1', '2', '3') {
-    Write-Host "Error, please type a number 1 OR 2 OR 3"
+    $option = Read-Host "Error, please type a number 1 OR 2 OR 3"
 } 
 
 #this will lead to only some of the questions being asked offboard(disable), vacation (normal) 
