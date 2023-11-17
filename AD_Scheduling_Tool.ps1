@@ -1,6 +1,6 @@
 Write-Host "This is the automatic enabling and disabling scheduling tool for Active Directory.
-Before using this tool, please ensure  the following:
-1. Import-Module ActiveDirectory is Installed
+Before using this tool, please ensure the following:
+1. Import-Module ActiveDirectory is installed
 2. You are running as admin
 3. Set-ExecutionPolicy RemoteSigned has been enabled
 4. For file location try C:\ if you do not know " -ForegroundColor Green
@@ -14,6 +14,17 @@ $user = Read-Host "Enter name of User" -ForegroundColor Green
 #$user is what person's AD account you want disabled or enabled. needs to be like jdoe, whatever the actual AD username is before domain#
 Get-ADUser $user -ErrorAction -Stop
 #ad module finds the user and spits out the data letting you know it was valid#
+$option = Read-Host "Enter reason of scheduling:
+[1] Onboarding
+[2] Offboarding
+[3] Vacation" -ForegroundColor Green
+while ($option -notin
+'1', '2', '3') {
+    Write-Host "Error, please type a number 1 OR 2 OR 3"
+} 
+#need to add question function that asks what the function if, offboarding, vacation, or onboarding
+#this will lead to only some of the questions being asked offboard(disable), vacation (normal) 
+#onboarding (disable in 1 hr, and only asks what date they want to be onboarded)
 $startvacation = Read-Host "Enter date you want the Users account to be *disabled* (no /) YYYY-MM-DD HH:MM:SS" 
 $stopvacation = Read-Host "Enter date you want the Users account to be *enabled* (no /) YYYY-MM-DD HH:MM:SS" 
 Remove-JobTrigger -Name "$startvacation" -ErrorAction SilentlyContinue
