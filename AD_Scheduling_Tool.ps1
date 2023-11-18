@@ -43,8 +43,8 @@ elseif ($option = '2') {
     $startvacation = Read-Host "Enter date you want the Users account to be *disabled* (no /) YYYY-MM-DD HH:MM:SS" 
 }
 #these functions could be done more efficient to prevent DRY
-Remove-JobTrigger -Name "$startvacation" -ErrorAction SilentlyContinue
-Remove-JobTrigger -Name "$stopvacation" -ErrorAction SilentlyContinue
+Remove-JobTrigger -Name "$startjobnew" -ErrorAction SilentlyContinue
+Remove-JobTrigger -Name "$stopjobnew" -ErrorAction SilentlyContinue
 #both of the above functions are kinda pointless and may create visible error messages its just to clean up any previous dupes*
 $startjobnew = New-JobTrigger -Once -At $startvacation 
 $stopjobnew = New-JobTrigger  -Once -At $stopvacation 
