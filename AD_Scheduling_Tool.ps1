@@ -10,7 +10,7 @@ if ($test -ne $filepath) {
 Write-Host "File path does not exist, verify path exist."-ForegroundColor Red
 exit
 }
-$user = Read-Host "Enter name of User" 
+$user = Read-Host "Enter name of User, example: jdoe" 
 #$user is what person's AD account you want disabled or enabled. needs to be like jdoe, whatever the actual AD username is before domain#
 Get-ADUser $user -ErrorAction -Stop
 #ad module finds the user and spits out the data letting you know it was valid#
