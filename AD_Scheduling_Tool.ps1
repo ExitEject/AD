@@ -10,14 +10,14 @@ if ($test -ne $filepath) {
 Write-Host "File path does not exist, verify path exist."-ForegroundColor Red
 exit
 }
-$user = Read-Host "Enter name of User" -ForegroundColor Green
+$user = Read-Host "Enter name of User" 
 #$user is what person's AD account you want disabled or enabled. needs to be like jdoe, whatever the actual AD username is before domain#
 Get-ADUser $user -ErrorAction -Stop
 #ad module finds the user and spits out the data letting you know it was valid#
 $option = Read-Host "Enter reason of scheduling:
 [1] Onboarding
 [2] Offboarding
-[3] Vacation" -ForegroundColor Green
+[3] Vacation"
 while ($option -notin
 '1', '2', '3') {
     $option = Read-Host "Error, please type a number 1 OR 2 OR 3"
