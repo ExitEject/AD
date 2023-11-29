@@ -43,30 +43,32 @@ elseif ($option = '2') {
     $startvacation = Read-Host "Enter date you want the Users account to be *disabled* (no /) YYYY-MM-DD HH:MM:SS" 
 }
 #these functions could be done more efficient to prevent DRY
-Remove-JobTrigger -Name "$startjobnew" -ErrorAction SilentlyContinue
-Remove-JobTrigger -Name "$stopjobnew" -ErrorAction SilentlyContinue
-#both of the above functions are kinda pointless and may create visible error messages its just to clean up any previous dupes*
-$startjobnew = New-JobTrigger -Once -At $startvacation 
-$stopjobnew = New-JobTrigger  -Once -At $stopvacation 
-#this creates the triggers for the scheduled tasks to start*
-$startjobnew1 = New-ScheduledJobOption -RunElevated -WakeToRun -RequireNetwork:$true
-$stopjobnew1 = New-ScheduledJobOption  -RunElevated -WakeToRun -RequireNetwork:$true
-#these create the new joboptions to run ps as admin and wake the computer, it also makes the job require network to function#
-UnRegister-ScheduledJob -Name Start$user -ErrorAction SilentlyContinue
-UnRegister-ScheduledJob -Name Stop$user -ErrorAction SilentlyContinue
-#both of the above functions are kinda pointless and may create visible error messages its just to clean up any previous dupes*
-Add-Content -Path $filepath\start$user.ps1 -Value "Disable-ADAccount -Identity $User
-Remove-Item -Path $filepath\start$user.ps1"
-#this is where it creates the disable account powershell script#
-Add-Content -Path $filepath\stop$user.ps1 -Value "Enable-ADAccount -Identity $User
-Remove-Item -Path $filepath\stop$user.ps1"
-#this is where it creates the enable account powershell script#
-Register-ScheduledJob -Name Start$user -FilePath $filepath\start$user.ps1 -Trigger $startjobnew -ScheduledJobOption $startjobnew1
-Register-ScheduledJob -Name Stop$user -FilePath $filepath\stop$user.ps1 -Trigger $stopjobnew -ScheduledJobOption $stopjobnew1
-Write-Host "Tasks Scheduled Succesfully."-ForegroundColor Green
-#this creates the scheduled job and assigns the trigger to previously made scripts, the files will delete themselves after they trigger too.*
-#this script relies on the Import-Module ActiveDirectory being installed#
-#to "cancel" purposed scheduled tasks simply delete the start/stop$user.ps1 files wherever they are stored. The scheduled task doesn't have to be cancelled if these are deleted because they won't do anything#
+{
+    Remove-JobTrigger -Name "$startjobnew" -ErrorAction SilentlyContinue
+    Remove-JobTrigger -Name "$stopjobnew" -ErrorAction SilentlyContinue
+    #both of the above functions are kinda pointless and may create visible error messages its just to clean up any previous dupes*
+    $startjobnew = New-JobTrigger -Once -At $startvacation 
+    $stopjobnew = New-JobTrigger  -Once -At $stopvacation 
+    #this creates the triggers for the scheduled tasks to start*
+    $startjobnew1 = New-ScheduledJobOption -RunElevated -WakeToRun -RequireNetwork:$true
+    $stopjobnew1 = New-ScheduledJobOption  -RunElevated -WakeToRun -RequireNetwork:$true
+    #these create the new joboptions to run ps as admin and wake the computer, it also makes the job require network to function#
+    UnRegister-ScheduledJob -Name Start$user -ErrorAction SilentlyContinue
+    UnRegister-ScheduledJob -Name Stop$user -ErrorAction SilentlyContinue
+    #both of the above functions are kinda pointless and may create visible error messages its just to clean up any previous dupes*
+    Add-Content -Path $filepath\start$user.ps1 -Value "Disable-ADAccount -Identity $User
+    Remove-Item -Path $filepath\start$user.ps1"
+    #this is where it creates the disable account powershell script#
+    Add-Content -Path $filepath\stop$user.ps1 -Value "Enable-ADAccount -Identity $User
+    Remove-Item -Path $filepath\stop$user.ps1"
+    #this is where it creates the enable account powershell script#
+    Register-ScheduledJob -Name Start$user -FilePath $filepath\start$user.ps1 -Trigger $startjobnew -ScheduledJobOption $startjobnew1
+    Register-ScheduledJob -Name Stop$user -FilePath $filepath\stop$user.ps1 -Trigger $stopjobnew -ScheduledJobOption $stopjobnew1
+    Write-Host "Tasks Scheduled Succesfully."-ForegroundColor Green
+    #this creates the scheduled job and assigns the trigger to previously made scripts, the files will delete themselves after they trigger too.*
+    #this script relies on the Import-Module ActiveDirectory being installed#
+}
+    #to "cancel" purposed scheduled tasks simply delete the start/stop$user.ps1 files wherever they are stored. The scheduled task doesn't have to be cancelled if these are deleted because they won't do anything#
 #you could also cancel all scheduled jobs or that job in powershell but IMO its much easier to just delete the ps1s#
 #ideas BATCH jobs for large onboardings (more than 2), cancel tool, maybe even a script to add the user and schedule at the same time??#
 #graphical interface like folder select, calender select
