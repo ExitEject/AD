@@ -7,7 +7,7 @@ if ping -c 1 $target 2>/dev/null; then
     sudo chmod 777 $target.txt
     sed -r 's/.{7}//' $target.txt > newfile.tmp && mv newfile.tmp $target.txt
     A=$(echo "$target")
-    B=$(echo "$target.txt")
+    B=$(cat "$target.txt")
     sudo sed -i "4i $A $B" /etc/hosts
     gnome-terminal -- bash -c "nmap -oN ~/Downloads/nmap.txt -p- --min-rate 1000 -sC -sV $target"
     gnome-terminal -- bash -c "gobuster dir -u $target:80 -w /usr/share/wordlists/dirb/common.txt -x php -o ~/Downloads/gobuster.txt"
@@ -17,5 +17,5 @@ else
     echo "$target down"
 fi
 #for VERYLOUD HTB testing
-#v1.03
+#v1.031 fixed a wrong command on 10, changed to echo
 #created by ExitEject 11/28/2023
