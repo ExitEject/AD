@@ -6,7 +6,7 @@ Help()
 	#display help
 	echo "Syntax: ./sigma.sh [-c | h]"
 	echo "options:"
-	echo "-c Cleans up artifacts in /etc/hosts and in ~/Downloads"
+	echo "-c Cleans up artifacts in ~/Downloads"
 	echo "-h displays help"
 	}
 Clean()
