@@ -1,5 +1,4 @@
 #!/bin/bash
-echo this is basically legion but stupid, dont make fun of me
 # help
 Help()
 {
@@ -29,6 +28,7 @@ while getopts ":hc" option; do
 		exit;;
 	esac
 done
+#this is basically legion but stupid, dont make fun of me
 read -p "Enter IP Address of target" target
   if ping -c 1 $target 2>/dev/null; then
     	echo "$target up"
