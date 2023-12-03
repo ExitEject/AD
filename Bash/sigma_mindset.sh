@@ -44,6 +44,7 @@ SigmaMindset()
 	firefox -P 'default-esr' http://$target:80 https://$target:443
     	#opens firefox to 80 and 443 just to check it out
 	rm $target.txt
+ 	done
 	}
 while getopts ":hcb" option; do
 	case $option in
