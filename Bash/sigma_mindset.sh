@@ -60,14 +60,16 @@ while getopts ":hcb" option; do
 	esac
 done
 #this is basically legion but stupid, dont make fun of me
-read -p "Enter IP Address of target" target
-#$target is the ip address of the host you want to scan
-if ping -c 1 $target 2>/dev/null; then
-#if ping succeeds then this stuff will happen
-	SigmaMindset
-else
-	echo "$target down or is not responding to ping probes use -b switch to bypass and run anyways, ensure IP address is correct, and you are on the correct network"
-fi
+{
+	read -p "Enter IP Address of target" target
+	#$target is the ip address of the host you want to scan
+	if ping -c 1 $target 2>/dev/null; then
+	#if ping succeeds then this stuff will happen
+		SigmaMindset
+	else
+		echo "$target down or is not responding to ping probes use -b switch to bypass and run anyways, ensure IP address is correct, and you are on the correct network"
+	fi
+} 
 #HTB Testing Tool
 #version 1.411
 #created by ExitEject 11/28/2023
