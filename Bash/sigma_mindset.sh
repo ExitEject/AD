@@ -1,12 +1,14 @@
 #!/bin/bash
-#requirements: gobuster, gnome-terminal installed, 'default-esr' profile in firefox available
+#requirements: gobuster, 'default-esr' profile in firefox available
 #/usr/share/worslists/dirb/common.txt needs to be present.
-#chmod 777 your /etc/hosts, there's probably a more secure way to do this
+#/usr/share/worslists/dirb/subdomains-top1million-5000.txt needs to be present.
+#chmod 777 your /etc/hosts. Or at least change permissions on it so you can edit without sudo.
 Help()
 {
 	#display help
-	echo "Syntax: ./sigma.sh [-c | -h]"
+	echo "Syntax: ./sigma.sh [-b |-c | -h]"
 	echo "options:"
+	echo "-b bypasses ping probe, helpful if the firewall state does not allow pinging"
 	echo "-c Cleans up artifacts in ~/Downloads"
 	echo "-h displays help"
 	}
@@ -29,11 +31,12 @@ SigmaMindset()
 	read -p "Enter IP Address of target" target
  	echo "$target up"
  	curl -X POST "$target" | grep -Eo "(http|https)://[a-zA-Z0-9.?=_%:-]*" > ~/Downloads/$target.txt
-    	#curl will pull a POST json from the ip to see if there's a webaddress at :80. Then grep will rip https://~ from the dns and put it in target.txt
+    	#curl will pull a POST json from the ip to see if there's a webaddress at :80. Then grep will rip http(s)://* from the dns and put it in target.txt
 	sudo chmod 777 $target.txt
  	if [ $(grep -c "https" $target.txt) -eq 1 ]
   	then
     	sed -r 's/.{8}//' $target.txt > newfile.tmp && mv newfile.tmp $target.txt
+	#sed removes the https:// from the domain name in target.txt, then makes a temp file, then replaces what was in target txt with what was in the tmp file
      	Sigma2
       	else
 	sed -r 's/.{7}//' $target.txt > newfile.tmp && mv newfile.tmp $target.txt
@@ -55,7 +58,7 @@ SigmaMindset()
 	rm $target.txt
  	done
   	}
-while getopts ":hcb" option; do
+while getopts ":bch" option; do
 	case $option in
 	h) #display help
 		Help
@@ -69,7 +72,6 @@ while getopts ":hcb" option; do
 		exit;;
 	esac
 done
-#this is basically legion but stupid, dont make fun of me
 {
 	read -p "Enter IP Address of target" target
 	#$target is the ip address of the host you want to scan
@@ -80,6 +82,6 @@ done
 		echo "$target down or is not responding to ping probes use -b switch to bypass and run anyways, ensure IP address is correct, and you are on the correct network"
 	fi
 } 
-#HTB Testing Tool
-#version 1.411
+#HTB Testing Tool, made for semi-automatic enumeration of network using several other tools
+#version 1.42
 #created by ExitEject 11/28/2023
