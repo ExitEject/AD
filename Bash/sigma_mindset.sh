@@ -23,7 +23,7 @@ Clean()
 	rm gobusterfuzz.txt
 	echo "Removed artifacts. There will still be a dns entry in /etc/hosts/"
 	exit
-}
+	}
 SigmaMindset()
 {
 	echo "$target up"
@@ -43,7 +43,7 @@ SigmaMindset()
 	firefox -P 'default-esr' http://$target:80 https://$target:443
     	#opens firefox to 80 and 443 just to check it out
 	rm $target.txt
-{
+	{
 while getopts ":hcb" option; do
 	case $option in
 	h) #display help
