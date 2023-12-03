@@ -31,8 +31,17 @@ SigmaMindset()
  	curl -X POST "$target" | grep -Eo "(http|https)://[a-zA-Z0-9.?=_%:-]*" > ~/Downloads/$target.txt
     	#curl will pull a POST json from the ip to see if there's a webaddress at :80. Then grep will rip https://~ from the dns and put it in target.txt
 	sudo chmod 777 $target.txt
-    	sed -r 's/.{7}//' $target.txt > newfile.tmp && mv newfile.tmp $target.txt
+ 	if [ $(grep -c "https" $target.txt) -eq 1 ]
+  	then
+    	sed -r 's/.{8}//' $target.txt > newfile.tmp && mv newfile.tmp $target.txt
+     	Sigma2
+      	else
+	sed -r 's/.{7}//' $target.txt > newfile.tmp && mv newfile.tmp $target.txt
     	#sed removes the http:// from the domain name in target.txt, then makes a temp file, then replaces what was in target txt with what was in the tmp file
+        Sigma2
+	}
+ Sigma2()
+ {
 	IPAddress=$(echo "$target") 
     	DomainName=$(cat "$target.txt")
     	sudo sed -i "4i $IPAddress $DomainName" /etc/hosts
@@ -45,7 +54,7 @@ SigmaMindset()
     	#opens firefox to 80 and 443 just to check it out
 	rm $target.txt
  	done
-	}
+  	}
 while getopts ":hcb" option; do
 	case $option in
 	h) #display help
