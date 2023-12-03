@@ -10,6 +10,11 @@ Help()
 	echo "-c Cleans up artifacts in ~/Downloads"
 	echo "-h displays help"
 	}
+Bypass()
+{
+	SigmaMindset
+	exit
+	}
 Clean()
 {
 	#cleans up artifacts
@@ -18,24 +23,9 @@ Clean()
 	rm gobusterfuzz.txt
 	echo "Removed artifacts. There will still be a dns entry in /etc/hosts/"
 	exit
-}	
-while getopts ":hc" option; do
-	case $option in
-	h) #display help
-		Help
-		exit;;
-	c) #clean up artifacts
-		Clean;;
-	\?) # Invalid option
-		echo "Error: Invalid option"
-		exit;;
-	esac
-done
-#this is basically legion but stupid, dont make fun of me
-read -p "Enter IP Address of target" target
-#$target is the ip address of the host you want to scan
-if ping -c 1 $target 2>/dev/null; then
-#if ping succeeds then this stuff will happen
+}
+SigmaMindset()
+{
 	echo "$target up"
  	curl -X POST "$target" | grep -Eo "(http|https)://[a-zA-Z0-9.?=_%:-]*" > ~/Downloads/$target.txt
     	#curl will pull a POST json from the ip to see if there's a webaddress at :80. Then grep will rip https://~ from the dns and put it in target.txt
@@ -53,8 +43,29 @@ if ping -c 1 $target 2>/dev/null; then
 	firefox -P 'default-esr' http://$target:80 https://$target:443
     	#opens firefox to 80 and 443 just to check it out
 	rm $target.txt
+{
+while getopts ":hcb" option; do
+	case $option in
+	h) #display help
+		Help
+		exit;;
+  	b) #bypass ping probe
+   		Bypass;;
+	c) #clean up artifacts
+		Clean;;
+	\?) # Invalid option
+		echo "Error: Invalid option"
+		exit;;
+	esac
+done
+#this is basically legion but stupid, dont make fun of me
+read -p "Enter IP Address of target" target
+#$target is the ip address of the host you want to scan
+if ping -c 1 $target 2>/dev/null; then
+#if ping succeeds then this stuff will happen
+	SigmaMindset
 else
-	echo "$target down"
+	echo "$target down or is not responding to ping probes use -b switch to bypass and run anyways, ensure IP address is correct, and you are on the correct network"
 fi
 #HTB Testing Tool
 #version 1.411
