@@ -3,6 +3,7 @@
 #/usr/share/worslists/dirb/common.txt needs to be present.
 #/usr/share/worslists/dirb/subdomains-top1million-5000.txt needs to be present.
 #chmod 777 your /etc/hosts. Or at least change permissions on it so you can edit without sudo.
+#run from ~/Downloads
 Help()
 {
 	#display help
