@@ -7,5 +7,5 @@ $A = Get-Content(machine2.txt)
 Write-Host "Cleaning up files..."
 Remove-Item machine.txt
 Remove-Item machine2.txt
-Rename-Computer -NewName "CSC-$A" -DomainCredential #put Domain01\Admin01 -Restart
+Rename-Computer -NewName "CSC-$A" -DomainCredential #Domain01\Admin01 -Restart
 Write-Host "Done."
