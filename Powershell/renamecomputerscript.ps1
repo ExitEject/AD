@@ -1,6 +1,7 @@
 #remove #Domain01\Admin01 and enter the credentials you want to use
 Write-Host "Getting serial number of machine, writing to temporary file."
 wmic bios get serialnumber >> machine.txt
+New-Item machine2.txt
 # powershell command to get the inputted machine's serial number and redirect to a new file called machine.txt
 Get-Content machine.txt | Where-Object {$_ -notmatch "serialnumber"} | Set-Content machine2.txt
 # read the content of machine.txt exlude serialnumber from appearing, put everything else into machine2.txt
