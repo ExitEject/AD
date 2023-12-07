@@ -1,5 +1,6 @@
 Option Explicit
 Private sub SubmitButton_Click()
+
     Dim ws As Worksheet
     Dim dToday As Date
     dtToday = Date()
@@ -14,12 +15,15 @@ Private sub SubmitButton_Click()
     ws.Cells(nextRow, 5).Value = TextBox5.Value
     ws.Cells(nextRow, 6).Value = TextBox6.Value
     ws.Cells(nextRow, 7).Value = TextBox7.Value
-    If MsgBox("Do you have more users to enter?", vbYesNo) =vbNo Then
-    SendEmail
-    End If
-End Sub
-
-Sub SendEmail()
+    Do While MsgBox("Do you have more users to enter?", vbYesNo + vbQuestion, "Enter more users?" = vbYes Then
+    TextBox1.Value = ""
+    TestBox2.Value = ""
+    TestBox3.Value = ""
+    TextBox4.Value = ""
+    TextBox5.Value = ""
+    TextBox6.Value = ""
+    TextBox7.Value = ""
+    Loop 
     Dim olApp As Object
     Dim olMail As Object
     Set olApp = CreateObject("Outlook.Application")
