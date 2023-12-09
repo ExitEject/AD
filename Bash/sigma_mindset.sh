@@ -7,7 +7,7 @@
 Help()
 {
 	#display help
-	echo "Syntax: ./sigma.sh [-b |-c | -h]"
+	echo "Syntax: ./sigma_mindset.sh [-b | -c| -h]"
 	echo "options:"
 	echo "-b bypasses ping probe, helpful if the firewall state does not allow pinging"
 	echo "-c Cleans up artifacts in ~/Downloads"
