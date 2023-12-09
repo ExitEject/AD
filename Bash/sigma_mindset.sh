@@ -44,6 +44,7 @@ SigmaMindset()
 	sed -r 's/.{7}//' $target.txt > newfile.tmp && mv newfile.tmp $target.txt
     	#sed removes the http:// from the domain name in target.txt, then makes a temp file, then replaces what was in target txt with what was in the tmp file
         Sigma2
+	fi
 	}
  Sigma2()
  {
