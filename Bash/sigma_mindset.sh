@@ -55,7 +55,7 @@ SigmaMindset()
 	#command cewl -d 2 -m 5 -w ~/Downloads/cewlusernames.txt http://$target/ --with-numbers &
 	command nmap -oN ~/Downloads/nmap.txt -p- --min-rate 1000 -sC -sV $target &
     command gobuster dir -u $target:80 -w /usr/share/wordlists/dirb/common.txt -x php,pdf,txt,asp -t 100 -o ~/Downloads/gobuster.txt &
-	command gobuster fuzz -u http://FUZZ.$target -w /usr/share/wordlists/dirb/subdomains-top1million-5000.txt -o ~/Downloads/gobusterfuzz.txt &
+	command gobuster fuzz -u http://FUZZ.$target -w /usr/share/wordlists/dirb/subdomains-top1million-5000.txt -o ~/Downloads/gobusterfuzz.txt --no-error &
     	#runs four background commands, they will be overwritten if the command is run again preventing a ton of artifacts
 	firefox -P 'default-esr' http://$target:80 https://$target:443
     	#opens firefox to 80 and 443 just to check it out
