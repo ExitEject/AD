@@ -15,7 +15,8 @@ Help()
 	}
 Bypass()
 {
-	SigmaMindset
+	read -p "Enter IP Address of target" target
+ 	SigmaMindset
 	exit
 	}
 Clean()
@@ -30,7 +31,6 @@ Clean()
 	}
 SigmaMindset()
 {
-	read -p "Enter IP Address of target" target
  	echo "$target up"
  	curl -X POST "$target" | grep -Eo "(http|https)://[a-zA-Z0-9.?=_%:-]*" > ~/Downloads/$target.txt
     	#curl will pull a POST json from the ip to see if there's a webaddress at :80. Then grep will rip http(s)://* from the dns and put it in target.txt
