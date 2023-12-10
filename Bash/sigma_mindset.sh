@@ -21,9 +21,9 @@ Bypass()
 Clean()
 {
 	#cleans up artifacts
-	rm ~Downloads/gobuster.txt
-	rm ~Downloads/nmap.txt
-	rm ~Downloads/gobusterfuzz.txt
+	rm ~/Downloads/gobuster.txt
+	rm ~/Downloads/nmap.txt
+	rm ~/Downloads/gobusterfuzz.txt
 	#rm ~Downloads/cewl.txt
 	echo "Removed artifacts. There will still be a dns entry in /etc/hosts/"
 	exit
